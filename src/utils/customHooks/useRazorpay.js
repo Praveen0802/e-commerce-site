@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 
 export const useRazorpay = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-  const [transactionId, setTransactionId] = useState("");
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -55,10 +53,6 @@ export const useRazorpay = () => {
         notes,
         theme,
         handler: function (response) {
-          console.log("Payment successful", response);
-          setTransactionId(response.razorpay_payment_id);
-          setShowSuccessPopup(true);
-
           if (onSuccess) {
             onSuccess(response);
           }
@@ -86,16 +80,7 @@ export const useRazorpay = () => {
     }
   };
 
-  const closeSuccessPopup = () => {
-    setShowSuccessPopup(false);
-  };
-
   return {
-    isLoaded,
     handlePayment,
-    showSuccessPopup,
-    setShowSuccessPopup,
-    transactionId,
-    closeSuccessPopup,
   };
 };

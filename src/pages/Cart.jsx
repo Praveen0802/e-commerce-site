@@ -15,16 +15,12 @@ import { useRazorpay } from "../utils/customHooks/useRazorpay";
 const Cart = () => {
   const [loader, setLoader] = useState(true);
   const [cartItems, setCartItems] = useState([]);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [transactionId, setTransactionId] = useState("");
 
   const dispatch = useDispatch();
 
-  const {
-    isLoaded,
-    handlePayment,
-    showSuccessPopup,
-    transactionId,
-    closeSuccessPopup,
-  } = useRazorpay();
+  const { handlePayment } = useRazorpay();
 
   const commondispatch = (cartValues) => {
     dispatch(setCartValues(cartValues));
@@ -109,7 +105,9 @@ const Cart = () => {
         items: cartItems.map((item) => item.id).join(","),
         total_items: cartItems.length,
       },
-      onSuccess: () => {
+      onSuccess: (response) => {
+        setTransactionId(response.razorpay_payment_id);
+        setShowSuccessPopup(true);
         setCookie("cart", "{}");
         commondispatch({});
         setCartItems([]);
@@ -133,7 +131,7 @@ const Cart = () => {
       {showSuccessPopup && (
         <CustomModal
           show={showSuccessPopup}
-          onClose={closeSuccessPopup}
+          onClose={() => setShowSuccessPopup(false)}
           outSideClickClose={false}
         >
           <SuccessPopup transactionId={transactionId} />
@@ -165,9 +163,8 @@ const Cart = () => {
           <button
             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:bg-blue-300"
             onClick={handleCheckout}
-            disabled={!isLoaded}
           >
-            {isLoaded ? "Proceed to Checkout" : "Loading Payment..."}
+            {"Proceed to Checkout"}
           </button>
         </div>
       </div>
