@@ -49,8 +49,7 @@ const Cart = () => {
   const calculateTotal = () => {
     return cartItems
       .reduce((total, item) => {
-        const discountedPrice =
-          item.price * (1 - item.discountPercentage / 100);
+        const discountedPrice = item.price;
         return total + discountedPrice * item.quantity;
       }, 0)
       .toFixed(2);
@@ -99,7 +98,6 @@ const Cart = () => {
     return <EmptyCart />;
   }
 
-
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
@@ -119,7 +117,7 @@ const Cart = () => {
         </div>
         <div className="px-6 py-4 flex flex-col sm:flex-row justify-between space-y-3 sm:space-y-0">
           <Link
-            href="/"
+            to="/"
             className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 text-center sm:text-left"
           >
             Continue Shopping

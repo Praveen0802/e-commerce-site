@@ -10,7 +10,8 @@ const ProductList = (props) => {
           <img
             src={product?.images[0]}
             alt={product?.title}
-            className="w-full h-full transition-transform duration-300 hover:scale-105"
+            loading="lazy"
+            className=" h-full mx-auto aspect-square transition-transform duration-300 hover:scale-105"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-gray-400">
@@ -55,7 +56,7 @@ const ProductList = (props) => {
 
         <div className="mb-4">
           <p className="text-gray-900 font-bold text-lg">
-          ₹{product?.price.toFixed(2)}
+            ₹{product?.price.toFixed(2)}
           </p>
           <p className="text-sm text-gray-500 mt-1">
             {product?.stock > 10
@@ -101,7 +102,7 @@ const ProductList = (props) => {
               </span>
               <button
                 onClick={() => addToCart(product)}
-                className="w-10 h-10 bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors focus:outline-none"
+                className={`w-10 h-10 bg-blue-600 text-white flex items-center justify-center disabled:bg-gray-400 hover:bg-blue-700 transition-colors focus:outline-none`}
                 disabled={product?.stock <= cart[product?.id]}
               >
                 <svg

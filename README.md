@@ -1,70 +1,114 @@
-# Getting Started with Create React App
+# Product Listing & Cart System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a Product Listing & Cart System built using React.js. It includes core functionalities like product listing, cart management, pagination, search, sorting, and state persistence using cookies.
 
-## Available Scripts
+## 🛠️ Technologies Used
 
-In the project directory, you can run:
+    React.js (Functional Components & Hooks)
 
-### `npm start`
+    State Management: Redux Toolkit
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+    UI Library: Tailwind CSS
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    Data Fetching: Axios
 
-### `npm test`
+    Routing: React Router
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+    npm install
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    npm start
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### ✅ Product Listing Page (Home Page)
 
-### `npm run eject`
+### Product Fetching:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    Initially Products are fetched from the API 'https://dummyjson.com/products' .
+     Displayed product details include:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+        Title
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+        Category
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+        Price
 
-## Learn More
+        Stock
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+        Image
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+     Pagination:
 
-### Code Splitting
+        Custom pagination component to navigate between pages.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+        Pagination is handled by updating limit and skip parameters in the API call.
 
-### Analyzing the Bundle Size
+     Add to Cart:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+        Each product has an Add to Cart button.
 
-### Making a Progressive Web App
+        Users can add multiple quantities of a product, limited by available stock.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+        When the stock limit is reached or no stock is available, the + button and Add to Cart button are disabled.
 
-### Advanced Configuration
+     Cart Count:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+        Cart item count is displayed in the header.
 
-### Deployment
+        Redux is used to manage cart state and update the item count in real-time.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+        Cart data is stored in cookies for persistence across page reloads.
 
-### `npm run build` fails to minify
+     Search Functionality:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+        Users can search for products using a search bar.
+
+        Search requests are debounced to optimize API calls (API: 'https://dummyjson.com/products/search').
+
+        Pagination works seamlessly with search queries by updating limit and skip parameters in the API call.
+
+     Sorting:
+
+        Products can be sorted by price in ascending (order: 'asc') or descending (order: 'desc') order.
+
+        Pagination works with sorting parameters.
+        
+##🛒 Cart Page
+
+ ## Cart Initialization:
+
+    Cart data is retrieved from cookies on page load.
+
+    A secondary API call ('https://dummyjson.com/products/${id}') fetches detailed product information for cart items.
+
+     Cart View:
+
+    Displayed cart details include:
+
+        Product Title
+
+        Price per Item
+
+        Quantity of items added
+
+        Total Price (Price × Quantity)
+        
+        Actions(Remove Item)
+
+     Modify Cart Items:
+
+        Users can increase or decrease the quantity of items.
+
+        If the stock limit is reached, the + button is disabled.
+
+        Items can be completely removed using the Remove button in actions.
+
+     Total Calculation:
+
+        The total price of all cart items is calculated and displayed.
+
+     Continue Shopping:
+
+        Users can navigate back to the product listing page to add more items to the cart.

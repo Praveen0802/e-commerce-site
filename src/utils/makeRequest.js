@@ -35,7 +35,7 @@ const makeRequest = async ({
 export const getProducts = async (params) => {
   try {
     const response = await makeRequest({
-      url: `https://dummyjson.com/products`,
+      url: `https://dummyjson.com/products${params?.q ? `/search` : ""}`,
       method: "GET",
       params: params,
     });

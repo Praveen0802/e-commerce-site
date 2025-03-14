@@ -3,7 +3,7 @@ import { ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const FlipkartHeader = () => {
+const NavBar = () => {
   const { cart } = useSelector((state) => state.cart);
   const cartItemsCount = Object.values(cart).reduce(
     (total, qty) => total + qty,
@@ -42,4 +42,4 @@ const FlipkartHeader = () => {
   );
 };
 
-export default FlipkartHeader;
+export default NavBar;

@@ -7,8 +7,9 @@ const TableRow = (props) => {
     removeItem,
     isMaxQuantity,
   } = props;
+
   return (
-    <tr key={item?.id} className="border-b-[1px] border-gray-200">
+    <tr className="border-b-[1px] border-gray-200">
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex gap-2 items-center">
           <div className="h-10 w-10 flex-shrink-0">
@@ -16,6 +17,7 @@ const TableRow = (props) => {
               className="h-10 w-10 rounded-md object-cover"
               src={item?.thumbnail}
               alt={item?.title}
+              loading="lazy"
             />
           </div>
           <div className="">
@@ -47,10 +49,10 @@ const TableRow = (props) => {
           <button
             onClick={() => increaseQuantity(item?.id)}
             className={`rounded-full w-6 h-6 flex items-center justify-center focus:outline-none ${
-                isMaxQuantity
-                  ? "text-gray-400 bg-gray-100 cursor-not-allowed"
-                  : "text-gray-600 hover:text-gray-900 bg-gray-100 hover:bg-gray-200"
-              }`}
+              isMaxQuantity
+                ? "text-gray-400 bg-gray-100 cursor-not-allowed"
+                : "text-gray-600 hover:text-gray-900 bg-gray-100 hover:bg-gray-200"
+            }`}
             disabled={isMaxQuantity}
           >
             +
@@ -60,7 +62,7 @@ const TableRow = (props) => {
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
         ₹{(discountedPrice * item?.quantity).toFixed(2)}
       </td>
-      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+      <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
         <button
           onClick={() => removeItem(item?.id)}
           className="text-red-600 hover:text-red-900"

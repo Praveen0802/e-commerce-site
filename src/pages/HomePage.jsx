@@ -25,9 +25,8 @@ const HomePage = () => {
     skip: 0,
     sortBy: "",
     order: "",
-    search: "",
   });
-console.log(getCookie("cart"),'ppppp');
+  console.log(getCookie("cart"), "ppppp");
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cart);
 
@@ -64,12 +63,10 @@ console.log(getCookie("cart"),'ppppp');
     }
   };
 
-
   const dispatchValues = (updatedCart) => {
     dispatch(setCartValues(updatedCart));
     setCookie("cart", JSON.stringify(updatedCart));
   };
-
 
   useEffect(() => {
     fetchProducts(filtersApplied);
@@ -80,7 +77,6 @@ console.log(getCookie("cart"),'ppppp');
     }
   }, []);
 
-
   const handlePageChange = (pageNumber) => {
     const skip = (pageNumber - 1) * 10;
     const updatedFilter = { ...filtersApplied, skip };
@@ -90,13 +86,11 @@ console.log(getCookie("cart"),'ppppp');
     window.scrollTo(0, 0);
   };
 
-
   const addToCart = (product) => {
     const { id } = product;
     const updatedAddCart = { ...cart, [id]: (cart[id] || 0) + 1 };
     dispatchValues(updatedAddCart);
   };
-
 
   const removeFromCart = (product) => {
     const { id } = product;
@@ -107,13 +101,11 @@ console.log(getCookie("cart"),'ppppp');
     dispatchValues(updatedRemovedCart);
   };
 
-
   const sortOptions = [
     { value: "featured", label: "Featured" },
     { value: "price-asc", label: "Price: Low to High" },
     { value: "price-desc", label: "Price: High to Low" },
   ];
-
 
   const handleSortChange = (option) => {
     setSelectedSort(option);
@@ -128,7 +120,6 @@ console.log(getCookie("cart"),'ppppp');
     fetchProducts(updatedFilter);
     setFiltersApplied(updatedFilter);
   };
-
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -151,7 +142,6 @@ console.log(getCookie("cart"),'ppppp');
   return (
     <div className="min-h-screen bg-gray-50">
       <main className="container mx-auto px-4 py-8">
-       
         <div className="mb-8 flex flex-wrap justify-between items-center gap-4">
           <h2 className="text-xl md:text-2xl font-semibold text-gray-800">
             Our Products
@@ -162,11 +152,11 @@ console.log(getCookie("cart"),'ppppp');
               options={sortOptions}
               defaultValue={sortOptions[0]}
               onChange={handleSortChange}
+              className={"w-full"}
             />
           </div>
         </div>
 
-       
         {isLoading ? (
           <Spinner />
         ) : (
@@ -183,7 +173,6 @@ console.log(getCookie("cart"),'ppppp');
           </div>
         )}
 
-       
         {!isLoading && products.length === 0 && (
           <div className="text-center py-12">
             <h3 className="mt-4 text-lg font-medium text-gray-900">
@@ -196,8 +185,7 @@ console.log(getCookie("cart"),'ppppp');
           </div>
         )}
 
-       
-        {!isLoading && products.length > 0 && (
+        {!isLoading && products.length > 0 && pagination.totalItems > 10 && (
           <Pagination
             currentPage={pagination.currentPage}
             totalItems={pagination.totalItems}
