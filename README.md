@@ -120,5 +120,8 @@ This project is a Product Listing & Cart System built using React.js. It include
         Created a custom hook for initializing and making Razorpay payment integration.
 
         After successful payment, the cart will be cleared, and users will be redirected to continue shopping.
+
+        Implemented razorpay is an test account so you can select upi mode
+             and write "success@razorpay" for successful payment
         
 
