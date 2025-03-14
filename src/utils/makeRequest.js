@@ -58,3 +58,16 @@ export const searchProducts = async (searchQuery) => {
     return error;
   }
 };
+
+export const fetchCartItems = async (id, params) => {
+  try {
+    const response = await makeRequest({
+      url: `https://dummyjson.com/products/${id}`,
+      method: "GET",
+      ...(params && { params }),
+    });
+    return response?.data;
+  } catch (error) {
+    return error;
+  }
+};
