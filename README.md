@@ -75,7 +75,7 @@ This project is a Product Listing & Cart System built using React.js. It include
 
         Pagination works with sorting parameters.
         
-##🛒 Cart Page
+## 🛒 Cart Page
 
  ## Cart Initialization:
 
