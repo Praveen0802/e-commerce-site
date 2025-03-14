@@ -25,12 +25,6 @@ const CustomSearch = ({ onSearch, delay = 500 }) => {
         placeholder="Search for products..."
         className="w-full px-4 py-2 border rounded-lg shadow-sm focus:ring focus:ring-blue-300 focus:outline-none"
       />
-      <button
-        type="button"
-        className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-gray-900"
-      >
-        🔍
-      </button>
     </div>
   );
 };
