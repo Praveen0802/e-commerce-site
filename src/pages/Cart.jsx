@@ -8,12 +8,23 @@ import { setCartValues } from "../utils/redux/cartCount/action";
 import { useDispatch } from "react-redux";
 import Spinner from "../components/spinner";
 import CartView from "../components/CartView";
+import SuccessPopup from "../components/successPopup";
+import CustomModal from "../components/customModal";
+import { useRazorpay } from "../utils/customHooks/useRazorpay";
 
 const Cart = () => {
   const [loader, setLoader] = useState(true);
   const [cartItems, setCartItems] = useState([]);
 
   const dispatch = useDispatch();
+
+  const {
+    isLoaded,
+    handlePayment,
+    showSuccessPopup,
+    transactionId,
+    closeSuccessPopup,
+  } = useRazorpay();
 
   const commondispatch = (cartValues) => {
     dispatch(setCartValues(cartValues));
@@ -90,16 +101,45 @@ const Cart = () => {
     }
   };
 
+  const handleCheckout = () => {
+    handlePayment({
+      amount: calculateTotal(),
+      notes: {
+        transaction_id: "txn_" + Date.now(),
+        items: cartItems.map((item) => item.id).join(","),
+        total_items: cartItems.length,
+      },
+      onSuccess: () => {
+        setCookie("cart", "{}");
+        commondispatch({});
+        setCartItems([]);
+      },
+      onError: (error) => {
+        alert("Payment failed: " + error.description);
+      },
+    });
+  };
+
   if (loader) {
     return <Spinner />;
   }
 
-  if (cartItems.length === 0) {
+  if (cartItems.length === 0 && !showSuccessPopup) {
     return <EmptyCart />;
   }
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {showSuccessPopup && (
+        <CustomModal
+          show={showSuccessPopup}
+          onClose={closeSuccessPopup}
+          outSideClickClose={false}
+        >
+          <SuccessPopup transactionId={transactionId} />
+        </CustomModal>
+      )}
+
       <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
 
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
@@ -122,8 +162,12 @@ const Cart = () => {
           >
             Continue Shopping
           </Link>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-            Proceed to Checkout
+          <button
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:bg-blue-300"
+            onClick={handleCheckout}
+            disabled={!isLoaded}
+          >
+            {isLoaded ? "Proceed to Checkout" : "Loading Payment..."}
           </button>
         </div>
       </div>

@@ -112,3 +112,13 @@ This project is a Product Listing & Cart System built using React.js. It include
      Continue Shopping:
 
         Users can navigate back to the product listing page to add more items to the cart.
+
+## (payment is just a mimic to complete the flow).    
+
+    Payment Integration:
+
+        Created a custom hook for initializing and making Razorpay payment integration.
+
+        After successful payment, the cart will be cleared, and users will be redirected to continue shopping.
+        
+
